@@ -3,3 +3,8 @@ Create a query to return:
 | Customer Id | Total number of Orders | % of all orders |
  
 order data by % - higher percent at the top.
+
+SELECT CustomerID, COUNT(CustomerID) AS [Total number of Orders], COUNT(OrderID)*100.0/SUM(COUNT(OrderID)) OVER() AS [% of all orders]
+FROM Orders
+GROUP BY CustomerID
+ORDER BY [Total number of Orders] DESC
