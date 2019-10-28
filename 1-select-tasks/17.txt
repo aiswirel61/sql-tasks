@@ -1,3 +1,8 @@
 Create SQL query to display the average price of each categories's products:
 
 | CategoryName | AvgPrice |
+
+SELECT c.CategoryName, AVG(p.UnitPrice) AS AvgPrice
+FROM Products p
+LEFT JOIN Categories c ON c.CategoryID=p.CategoryID
+GROUP BY c.CategoryName
