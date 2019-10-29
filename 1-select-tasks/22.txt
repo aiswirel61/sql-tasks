@@ -1,3 +1,15 @@
 Create a SQL query to display the name of each customer along with their most expensive purchased product:
 
 | CompanyName | ProductName | PricePerItem |
+
+SELECT DISTINCT c.CompanyName, p.ProductName, d.UnitPrice AS PricePerItem
+FROM Customers c
+LEFT JOIN Orders o ON c.CustomerID = o.CustomerID
+LEFT JOIN [Order Details] d ON o.OrderID = d.OrderId
+LEFT JOIN Products p ON d.ProductID = p.ProductID
+WHERE d.UnitPrice = (
+	SELECT MAX(d.UnitPrice) FROM [Order Details] d
+	JOIN Orders o ON d.OrderID = o.OrderID
+	WHERE c.CustomerID = o.CustomerID
+)
+ORDER BY d.UnitPrice ASC
