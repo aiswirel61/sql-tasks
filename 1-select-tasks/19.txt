@@ -2,3 +2,8 @@ Create a SQL query to display customer details whose total orders amount is more
 
 | CustomerId | CompanyName | TotalOrdersAmount, $ |
 
+SELECT c.CustomerID, c.CompanyName, (d.UnitPrice * d.Quantity) AS [TotalOrdersAmount, $]	
+FROM [Order Details] d
+JOIN Orders b ON d.OrderID = b.OrderID
+JOIN Customers c ON b.CustomerID = c.CustomerID
+WHERE d.UnitPrice * d.Quantity > 10000
